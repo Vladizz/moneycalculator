@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.conteiner {
+  display: flex;
+  justify-content: space-around;
+}
+
+.box-header {
+  text-align: center;
+}
+
+.box-form {
+  border: 2px solid #0F4DA8;
+  background: #6A94D4;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.box-text {
+  border: 2px solid #1E776D;
+  background: #5ED1BA;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.header-text {
+  font-family: 'Comfortaa', cursive;
+}
+
+.goal {
+  display: flex;
+}
