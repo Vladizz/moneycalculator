@@ -42,3 +42,8 @@ body {
 .goal {
   display: flex;
 }
+
+.text-goal {
+  font-size: 20px;
+  color: #0F4DA8;
+}
