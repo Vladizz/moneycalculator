@@ -28,7 +28,14 @@ massivFromFirstBlock.push(userData);
 console.log(massivFromFirstBlock);
 }
 
-addButton.addEventListener('click', getUserData);
+addButton.addEventListener('click', () => {
+    getUserData();
+    inputName.value ="";
+    inputAmount.value ="";
+    inputDate.value ="";
+    inputInitialPayment.value ="";
+    inputInterest.value ="";
+});
 
 // console.log(massivFromFirstBlock);
 
