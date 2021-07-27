@@ -6,12 +6,11 @@ const inputInterest = document.querySelector('.interest');
 const addButton = document.querySelector('.btn-add');
 const replenishmentPercentage = document.querySelector('.replenishment-percentage');
 const boxForm = document.querySelector('.box-form');
-const forInsertBefore = document.querySelector('.for-insert-before')
-let alertNoData = document.createElement('h2')
-alertNoData.classList.add('alert-message')
-let alertWrongDigits = document.createElement('h2')
-alertWrongDigits.classList.add('alert-message')
-
+const forInsertBefore = document.querySelector('.for-insert-before');
+const alertNoData = document.createElement('h2');
+alertNoData.classList.add('alert-message');
+const alertWrongDigits = document.createElement('h2');
+alertWrongDigits.classList.add('alert-message');
 
 const guid = () => {
   const s4 = () => Math.floor((1 + Math.random()) * 0x10000)
@@ -48,6 +47,9 @@ function getUserData() {
     date: inputDate.value,
     payment: inputInitialPayment.value,
     interest: inputInterest.value,
+    monthsNumber: Math.ceil(
+      moment(inputDate.value).diff(moment(), 'months', true),
+    ),
   };
   return userData;
 }
@@ -124,54 +126,41 @@ function showMyGoal(goal) {
     const dataIndex = massivFromFirstBlock.findIndex((el) => el.id === goal.id);
     massivFromFirstBlock.slice(dataIndex, 1);
   });
-
-  const nbOfMonthsBeforeDeadline = Math.ceil(
-    moment(goal.date).diff(moment(), 'months', true),
-  );
-
-  console.log(nbOfMonthsBeforeDeadline);
 }
 
-function checkEmptylInputs (data) {
-  if (data.name !== '' && data.amount !== '' && data.payment !== '' && data.interest !== '') {
-    return true
-  } else {
-    return false;
-    // alertNoData.innerText = 'Введите значение'
-    // boxForm.insertBefore(alertNoData, forInsertBefore)
-    // goalElDiv.remove(); 
+function checkEmptylInputs(data) {
+  if (data.name !== '' && data.amount !== '' && !isNaN(data.monthsNumber) && data.payment !== '' && data.interest !== '') {
+    return true;
   }
+  return false;
 }
 
-function checkNegativeDigitalInputs (data) {
+function checkNegativeDigitalInputs(data) {
   if (data.amount > 0 && data.payment > 0 && data.interest > 0) {
-    return true
-  } else {
-    return false
+    return true;
   }
+  return false;
 }
 
 addButton.addEventListener('click', () => {
   const data = getUserData();
-  if(!checkEmptylInputs(data)) {
-    alertNoData.innerText = 'Введите значение'
-    boxForm.insertBefore(alertNoData, forInsertBefore)
-    return
+  if (!checkEmptylInputs(data)) {
+    alertNoData.innerText = 'Введите значение';
+    boxForm.insertBefore(alertNoData, forInsertBefore);
+    return;
   }
-  alertNoData.innerText = ''
+  alertNoData.innerText = '';
 
   if (!checkNegativeDigitalInputs(data)) {
-    alertWrongDigits.innerText = 'Введите норм цифры'
-    boxForm.insertBefore(alertWrongDigits, forInsertBefore)
-    return
+    alertWrongDigits.innerText = 'Введите норм цифры';
+    boxForm.insertBefore(alertWrongDigits, forInsertBefore);
+    return;
   }
-  alertWrongDigits.innerText = ''
-  
+  alertWrongDigits.innerText = '';
+
   massivFromFirstBlock.push(data);
 
   showMyGoal(data);
-  // getUserData();
   zeroingForm();
   console.log(data);
 });
-
