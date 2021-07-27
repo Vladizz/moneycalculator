@@ -125,3 +125,18 @@ input {
   font-weight: 900;
   font-size: 20px;
 }
+
+.alert-message {
+  margin-bottom: 0px;
+  color: red;
+        text-shadow: 0 -1px rgba(0,0,0,.1);
+        font-weight: 600;
+        -webkit-animation: pulsate 1.2s linear infinite;
+        animation: pulsate 1.2s linear infinite;
+    }
+    @keyframes pulsate {
+        50% {
+        color:#fff;
+        text-shadow:0 -1px rgba(0,0,0,.3),0 0 5px black,0 0 8px red;
+        }
+}
