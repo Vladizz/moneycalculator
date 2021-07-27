@@ -168,3 +168,21 @@ addButton.addEventListener('click', () => {
 
 });
 
+<<<<<<< HEAD
+=======
+
+
+let stepen = 0;
+
+function mounthConvert(i) {
+  
+  stepen = stepen/12 ;
+    
+}
+
+function countPercentage(interest.value) {
+  let percentagePerMounth =  1 + interest.value/12;
+  Math.pow(percentagePerMounth, stepen )
+  
+}
+>>>>>>> nochanges
