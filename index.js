@@ -7,10 +7,12 @@ const addButton = document.querySelector('.btn-add');
 const replenishmentPercentage = document.querySelector('.replenishment-percentage');
 const boxForm = document.querySelector('.box-form');
 const forInsertBefore = document.querySelector('.for-insert-before');
-const alertNoData = document.createElement('h2');
+let alertNoData = document.createElement('h2');
 alertNoData.classList.add('alert-message');
-const alertWrongDigits = document.createElement('h2');
+let alertWrongDigits = document.createElement('h2');
 alertWrongDigits.classList.add('alert-message');
+let minDate = document.querySelector('.date');
+minDate.min = new Date().toISOString().split("T")[0];
 
 const guid = () => {
   const s4 = () => Math.floor((1 + Math.random()) * 0x10000)
@@ -163,4 +165,6 @@ addButton.addEventListener('click', () => {
   showMyGoal(data);
   zeroingForm();
   console.log(data);
+
 });
+
