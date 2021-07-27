@@ -117,6 +117,12 @@ function showMyGoal(goal) {
     const dataIndex = massivFromFirstBlock.findIndex((el) => el.id === goal.id);
     massivFromFirstBlock.slice(dataIndex, 1);
   });
+
+  const nbOfMonthsBeforeDeadline = Math.ceil(
+    moment(goal.date).diff(moment(), 'months', true),
+  );
+
+  console.log(nbOfMonthsBeforeDeadline);
 }
 
 addButton.addEventListener('click', () => {
