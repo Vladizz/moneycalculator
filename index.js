@@ -5,6 +5,13 @@ const inputInitialPayment = document.querySelector('.initial-payment');
 const inputInterest = document.querySelector('.interest');
 const addButton = document.querySelector('.btn-add');
 const replenishmentPercentage = document.querySelector('.replenishment-percentage');
+const boxForm = document.querySelector('.box-form');
+const forInsertBefore = document.querySelector('.for-insert-before')
+let alertNoData = document.createElement('h2')
+alertNoData.classList.add('alert-message')
+let alertWrongDigits = document.createElement('h2')
+alertWrongDigits.classList.add('alert-message')
+
 
 const guid = () => {
   const s4 = () => Math.floor((1 + Math.random()) * 0x10000)
@@ -125,11 +132,46 @@ function showMyGoal(goal) {
   console.log(nbOfMonthsBeforeDeadline);
 }
 
+function checkEmptylInputs (data) {
+  if (data.name !== '' && data.amount !== '' && data.payment !== '' && data.interest !== '') {
+    return true
+  } else {
+    return false;
+    // alertNoData.innerText = 'Введите значение'
+    // boxForm.insertBefore(alertNoData, forInsertBefore)
+    // goalElDiv.remove(); 
+  }
+}
+
+function checkNegativeDigitalInputs (data) {
+  if (data.amount > 0 && data.payment > 0 && data.interest > 0) {
+    return true
+  } else {
+    return false
+  }
+}
+
 addButton.addEventListener('click', () => {
   const data = getUserData();
+  if(!checkEmptylInputs(data)) {
+    alertNoData.innerText = 'Введите значение'
+    boxForm.insertBefore(alertNoData, forInsertBefore)
+    return
+  }
+  alertNoData.innerText = ''
+
+  if (!checkNegativeDigitalInputs(data)) {
+    alertWrongDigits.innerText = 'Введите норм цифры'
+    boxForm.insertBefore(alertWrongDigits, forInsertBefore)
+    return
+  }
+  alertWrongDigits.innerText = ''
+  
   massivFromFirstBlock.push(data);
+
   showMyGoal(data);
-  getUserData();
+  // getUserData();
   zeroingForm();
   console.log(data);
 });
+
