@@ -168,10 +168,14 @@ addButton.addEventListener('click', () => {
 
   massivFromFirstBlock.push(data);
 
+<<<<<<< HEAD
   data.resultMonthlyPayment = sizeMonthlyReplenishment(data);
   console.log(data.resultMonthlyPayment);
   replenishmentPercentage.innerText = data.resultMonthlyPayment.toFixed(2);
 
+=======
+  countPercentage();
+>>>>>>> nothig
   showMyGoal(data);
   zeroingForm();
 });
@@ -209,6 +213,64 @@ inputInitialPayment.addEventListener('input', () => {
   changeOfValue(getUserData());
 });
 
+<<<<<<< HEAD
 inputInterest.addEventListener('input', () => {
   changeOfValue(getUserData());
 });
+=======
+
+
+// let treb = inputAmount.value;
+// let srok = inputDate.value;
+// let start = inputInitialPayment.value
+// let proc =  inputInterest.value
+// let sumProc = 0;
+// for (i = 1; i < srok + 1; i++) {
+//     sumProc = sumProc + (1 + proc/100)**i
+// }
+// let sumPerMonth = (treb - ((1 + proc/100)**srok)*start)/sumProc;
+// console.log(sumPerMonth)
+
+
+// function check() {
+//     (treb != "" ) || (srok != "") || (start != "") || (proc != "") 
+
+// }
+
+
+
+
+function countPercentage() {
+
+let treb = inputAmount.value;
+console.log(treb);
+let srok = inputDate.value;
+console.log(srok);
+let start = inputInitialPayment.value
+console.log(start);
+let proc =  inputInterest.value
+console.log(proc);
+let sumProc = 0;
+
+console.warn(srok, srok + 1)
+for (i = 1; i < srok + 1; i++) {
+    sumProc = sumProc + (1 + proc/100)**i
+}
+let sumPerMonth = (treb - ((1 + proc/100)**srok)*start)/sumProc;
+sumPerMonth = Number(sumPerMonth);
+console.log(sumPerMonth);
+replenishmentPercentage.innerText = sumPerMonth;
+
+}
+
+
+
+// let treb = inputAmount.value;
+// console.log(treb);
+// let srok = inputDate.value;
+// console.log(srok);
+// let start = inputInitialPayment.value
+// console.log(start);
+// let proc =  inputInterest.value
+// console.log(proc);
+>>>>>>> nothig
