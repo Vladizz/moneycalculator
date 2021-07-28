@@ -110,14 +110,8 @@ function showMyGoal(goal) {
 
   const percentage = document.createElement('h5');
   percentage.classList.add('p-design');
-<<<<<<< HEAD
   percentage.innerText = `Сумма ежемесячного платежа: ${numberWithSpaces(goal.resultMonthlyPayment.toFixed(2))}`;
   console.log(goal.resultMonthlyPayment);
-=======
-  percentage.innerText = `Сумма ежемесячного платежа: ${goal.resultMonthlyPayment.toFixed(2)}`;
-
-
->>>>>>> sokrashenie
 
   deleteButton.append(deletePic);
   goalElDiv.append(editButton);
@@ -232,12 +226,9 @@ inputInitialPayment.addEventListener('input', () => {
 inputInterest.addEventListener('input', () => {
   changeOfValue(getUserData());
 });
-<<<<<<< HEAD
 
 function numberWithSpaces(str) {
   const parts = str.toString().split('.');
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   return parts.join('.');
 }
-=======
->>>>>>> sokrashenie
