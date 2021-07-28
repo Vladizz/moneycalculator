@@ -111,7 +111,6 @@ function showMyGoal(goal) {
   const percentage = document.createElement('h5');
   percentage.classList.add('p-design');
   percentage.innerText = `Сумма ежемесячного платежа: ${numberWithSpaces(goal.resultMonthlyPayment.toFixed(2))}`;
-  console.log(goal.resultMonthlyPayment);
 
   deleteButton.append(deletePic);
   goalElDiv.append(editButton);
@@ -178,7 +177,6 @@ addButton.addEventListener('click', () => {
   massivFromFirstBlock.push(data);
 
   data.resultMonthlyPayment = sizeMonthlyReplenishment(data);
-  console.log(data.resultMonthlyPayment);
   replenishmentPercentage.innerText = data.resultMonthlyPayment.toFixed(2);
 
   showMyGoal(data);
@@ -203,7 +201,6 @@ function changeOfValue(data) {
   inputDate.value = data.date;
   inputInitialPayment.value = numberWithSpaces(data.payment);
   inputInterest.value = numberWithSpaces(data.interest);
-  console.log(data);
   if (!outputScreenWithout(data)) {
     data.resultMonthlyPayment = sizeMonthlyReplenishment(data);
     console.log(data.resultMonthlyPayment);
