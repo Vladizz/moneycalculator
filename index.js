@@ -108,7 +108,7 @@ function showMyGoal(goal) {
   deletePic.src = 'images/delete-btn.svg';
   deletePic.classList.add('delete-img');
 
-  const percentage = document.createElement('h3');
+  const percentage = document.createElement('h5');
   percentage.classList.add('p-design');
   percentage.innerText = `Сумма ежемесячного платежа: ${numberWithSpaces(goal.resultMonthlyPayment.toFixed(2))}`;
   console.log(goal.resultMonthlyPayment);
@@ -176,6 +176,10 @@ addButton.addEventListener('click', () => {
   alertWrongDigits.innerText = '';
   changeOfValue(data);
   massivFromFirstBlock.push(data);
+
+  data.resultMonthlyPayment = sizeMonthlyReplenishment(data);
+  console.log(data.resultMonthlyPayment);
+  replenishmentPercentage.innerText = data.resultMonthlyPayment.toFixed(2);
 
   showMyGoal(data);
   zeroingForm();

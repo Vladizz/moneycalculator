@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="media.css">
   <script src="https://unpkg.com/moment@2.29.1/min/moment.min.js"></script>
   <script defer src="index.js"></script>
   <title>Piggy bank</title>
@@ -20,27 +21,28 @@
       <div>
         <h3 class="left-head">Параметры</h3>
       </div>
-      <div>
+      <div class="left-inputs-name">
         <p class="left-parametr">Название цели</p>
         <input class="goal-name" type="text" placeholder="Название цели" required>
       </div>
-      <div>
+      <div class="left-inputs-name">
         <p class="left-parametr">Требуемая сумма</p>
         <input class="amount" type="text" placeholder="Требуемая сумма" required>
       </div>
-      <div>
+      <div class="left-inputs-name">
         <p class="left-parametr">Срок</p>
         <input class="date" type="date" placeholder="Срок" min="" required>
       </div>
-      <div>
+      <div class="left-inputs-name">
         <p class="left-parametr">Стартовая сумма</p>
         <input class="initial-payment" type="text" placeholder="Стартовая сумма" required>
       </div>
-      <div>
+      <div class="left-inputs-name">
         <p class="left-parametr">Процент по вкладу</p>
         <input class="interest" type="text" placeholder="Процент по вкладу" required>
       </div>
       <div class="for-insert-before">
+        <p class="replenishment-text">Сумма ежемесячного платежа</p>
         <p class="replenishment-percentage"></p>
       </div>
       <div>
@@ -49,7 +51,7 @@
     </div>
     <div class="box-text">
       <div>
-        <h3>Цели</h3>
+        <h3 class="right-head">Цели</h3>
       </div>
     </div>
   </div>
