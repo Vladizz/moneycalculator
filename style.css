@@ -30,7 +30,7 @@ body {
 }
 
 .box-text, .box-form {
-  width: 500px;
+  width: 35%;
   border-radius: 12px;
   display: flex;
   flex-direction: column;

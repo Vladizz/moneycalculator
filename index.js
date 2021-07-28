@@ -169,7 +169,7 @@ addButton.addEventListener('click', () => {
   alertNoData.innerText = '';
 
   if (!checkNegativeDigitalInputs(data)) {
-    alertWrongDigits.innerText = 'Введите норм цифры';
+    alertWrongDigits.innerText = 'Введите корректные значения';
     boxForm.insertBefore(alertWrongDigits, forInsertBefore);
     return;
   }
