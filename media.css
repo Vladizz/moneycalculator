@@ -1,4 +1,8 @@
 @media (max-width: 834px) {
+    html {
+        height: 100%;
+        width: 100%;
+    }
     body {
     background: linear-gradient(180deg, rgb(226, 244, 246), rgb(246, 228, 226));
     font-family: 'Montserrat', cursive;
