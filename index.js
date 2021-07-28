@@ -45,10 +45,10 @@ function getUserData() {
   const userData = {
     id: guid(),
     name: inputName.value,
-    amount: inputAmount.value,
+    amount: inputAmount.value.replace(/[^0-9.]/g, ''),
     date: inputDate.value,
-    payment: inputInitialPayment.value,
-    interest: inputInterest.value,
+    payment: inputInitialPayment.value.replace(/[^0-9.]/g, ''),
+    interest: inputInterest.value.replace(/[^0-9.]/g, ''),
     monthsNumber: Math.ceil(
       moment(inputDate.value).diff(moment(), 'months', true),
     ),
@@ -62,6 +62,7 @@ function zeroingForm() {
   inputDate.value = '';
   inputInitialPayment.value = '';
   inputInterest.value = '';
+  replenishmentPercentage.innerText = '';
 }
 
 function showMyGoal(goal) {
@@ -86,7 +87,7 @@ function showMyGoal(goal) {
 
   const amountP = document.createElement('p');
   amountP.classList.add('p-design');
-  amountP.innerText = `Требуемая сумма: ${goal.amount}`;
+  amountP.innerText = `Требуемая сумма: ${numberWithSpaces(goal.amount)}`;
 
   const dateP = document.createElement('p');
   dateP.classList.add('p-design');
@@ -94,11 +95,11 @@ function showMyGoal(goal) {
 
   const paymentP = document.createElement('p');
   paymentP.classList.add('p-design');
-  paymentP.innerText = `Стартовая сумма: ${goal.payment}`;
+  paymentP.innerText = `Стартовая сумма: ${numberWithSpaces(goal.payment)}`;
 
   const interestP = document.createElement('p');
   interestP.classList.add('p-design');
-  interestP.innerText = `Процент: ${goal.interest}`;
+  interestP.innerText = `Процент: ${numberWithSpaces(goal.interest)}`;
 
   const deleteButton = document.createElement('button');
   deleteButton.classList.add('btn-delete');
@@ -109,7 +110,8 @@ function showMyGoal(goal) {
 
   const percentage = document.createElement('h3');
   percentage.classList.add('p-design');
-  percentage.innerText = `Сумма ежемесячного платежа: ${goal.resultMonthlyPayment}`;
+  percentage.innerText = `Сумма ежемесячного платежа: ${numberWithSpaces(goal.resultMonthlyPayment.toFixed(2))}`;
+  console.log(goal.resultMonthlyPayment);
 
   deleteButton.append(deletePic);
   goalElDiv.append(editButton);
@@ -150,6 +152,13 @@ function checkNegativeDigitalInputs(data) {
   return false;
 }
 
+function outputScreenWithout(data) {
+  if (!isNaN(data.amount) && !isNaN(data.date) && !isNaN(data.payment) && !isNaN(data.interest)) {
+    return true;
+  }
+  return false;
+}
+
 addButton.addEventListener('click', () => {
   const data = getUserData();
   if (!checkEmptylInputs(data)) {
@@ -165,17 +174,9 @@ addButton.addEventListener('click', () => {
     return;
   }
   alertWrongDigits.innerText = '';
-
+  changeOfValue(data);
   massivFromFirstBlock.push(data);
 
-<<<<<<< HEAD
-  data.resultMonthlyPayment = sizeMonthlyReplenishment(data);
-  console.log(data.resultMonthlyPayment);
-  replenishmentPercentage.innerText = data.resultMonthlyPayment.toFixed(2);
-
-=======
-  countPercentage();
->>>>>>> nothig
   showMyGoal(data);
   zeroingForm();
 });
@@ -194,11 +195,16 @@ function sizeMonthlyReplenishment(data) {
 }
 
 function changeOfValue(data) {
-  inputAmount.value = data.amount;
+  inputAmount.value = numberWithSpaces(data.amount);
   inputDate.value = data.date;
-  inputInitialPayment.value = data.payment;
-  inputInterest.value = data.interest;
+  inputInitialPayment.value = numberWithSpaces(data.payment);
+  inputInterest.value = numberWithSpaces(data.interest);
   console.log(data);
+  if (!outputScreenWithout(data)) {
+    data.resultMonthlyPayment = sizeMonthlyReplenishment(data);
+    console.log(data.resultMonthlyPayment);
+    replenishmentPercentage.innerText = numberWithSpaces(data.resultMonthlyPayment.toFixed(2));
+  }
 }
 
 inputAmount.addEventListener('input', () => {
@@ -213,64 +219,12 @@ inputInitialPayment.addEventListener('input', () => {
   changeOfValue(getUserData());
 });
 
-<<<<<<< HEAD
 inputInterest.addEventListener('input', () => {
   changeOfValue(getUserData());
 });
-=======
 
-
-// let treb = inputAmount.value;
-// let srok = inputDate.value;
-// let start = inputInitialPayment.value
-// let proc =  inputInterest.value
-// let sumProc = 0;
-// for (i = 1; i < srok + 1; i++) {
-//     sumProc = sumProc + (1 + proc/100)**i
-// }
-// let sumPerMonth = (treb - ((1 + proc/100)**srok)*start)/sumProc;
-// console.log(sumPerMonth)
-
-
-// function check() {
-//     (treb != "" ) || (srok != "") || (start != "") || (proc != "") 
-
-// }
-
-
-
-
-function countPercentage() {
-
-let treb = inputAmount.value;
-console.log(treb);
-let srok = inputDate.value;
-console.log(srok);
-let start = inputInitialPayment.value
-console.log(start);
-let proc =  inputInterest.value
-console.log(proc);
-let sumProc = 0;
-
-console.warn(srok, srok + 1)
-for (i = 1; i < srok + 1; i++) {
-    sumProc = sumProc + (1 + proc/100)**i
+function numberWithSpaces(str) {
+  const parts = str.toString().split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  return parts.join('.');
 }
-let sumPerMonth = (treb - ((1 + proc/100)**srok)*start)/sumProc;
-sumPerMonth = Number(sumPerMonth);
-console.log(sumPerMonth);
-replenishmentPercentage.innerText = sumPerMonth;
-
-}
-
-
-
-// let treb = inputAmount.value;
-// console.log(treb);
-// let srok = inputDate.value;
-// console.log(srok);
-// let start = inputInitialPayment.value
-// console.log(start);
-// let proc =  inputInterest.value
-// console.log(proc);
->>>>>>> nothig
