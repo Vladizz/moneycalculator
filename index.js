@@ -7,12 +7,12 @@ const addButton = document.querySelector('.btn-add');
 const replenishmentPercentage = document.querySelector('.replenishment-percentage');
 const boxForm = document.querySelector('.box-form');
 const forInsertBefore = document.querySelector('.for-insert-before');
-let alertNoData = document.createElement('h2');
+const alertNoData = document.createElement('h2');
 alertNoData.classList.add('alert-message');
-let alertWrongDigits = document.createElement('h2');
+const alertWrongDigits = document.createElement('h2');
 alertWrongDigits.classList.add('alert-message');
-let minDate = document.querySelector('.date');
-minDate.min = new Date().toISOString().split("T")[0];
+const minDate = document.querySelector('.date');
+minDate.min = new Date().toISOString().split('T')[0];
 
 const guid = () => {
   const s4 = () => Math.floor((1 + Math.random()) * 0x10000)
@@ -107,6 +107,10 @@ function showMyGoal(goal) {
   deletePic.src = 'images/delete-btn.svg';
   deletePic.classList.add('delete-img');
 
+  const percentage = document.createElement('h3');
+  percentage.classList.add('p-design');
+  percentage.innerText = `Сумма ежемесячного платежа: ${goal.resultMonthlyPayment}`;
+
   deleteButton.append(deletePic);
   goalElDiv.append(editButton);
   goalElDiv.append(myGoalMetrics);
@@ -115,12 +119,14 @@ function showMyGoal(goal) {
   myGoalMetrics.append(dateP);
   myGoalMetrics.append(paymentP);
   myGoalMetrics.append(interestP);
+  myGoalMetrics.append(percentage);
   goalElDiv.append(deleteButton);
   boxText.append(goalElDiv);
 
   editButton.addEventListener('click', () => {
     searchInAnArray(massivFromFirstBlock, goal.id);
     goalElDiv.remove();
+    changeOfValue(goal);
   });
 
   deleteButton.addEventListener('click', () => {
@@ -138,7 +144,7 @@ function checkEmptylInputs(data) {
 }
 
 function checkNegativeDigitalInputs(data) {
-  if (data.amount > 0 && data.payment > 0 && data.interest > 0) {
+  if (data.amount > 0 && data.payment >= 0 && data.interest > 0 && data.interest <= 100) {
     return true;
   }
   return false;
@@ -162,9 +168,47 @@ addButton.addEventListener('click', () => {
 
   massivFromFirstBlock.push(data);
 
+  data.resultMonthlyPayment = sizeMonthlyReplenishment(data);
+  console.log(data.resultMonthlyPayment);
+  replenishmentPercentage.innerText = data.resultMonthlyPayment.toFixed(2);
+
   showMyGoal(data);
   zeroingForm();
-  console.log(data);
-
 });
 
+function sizeMonthlyReplenishment(data) {
+  const requiredAmount = Number(data.amount);
+  const term = Number(data.monthsNumber);
+  const startingAmount = Number(data.payment);
+  const depositInterest = Number(data.interest);
+  let interestAmount = 0;
+  for (let i = 1; i < term + 1; i += 1) {
+    interestAmount += (1 + depositInterest / 100) ** i;
+  }
+  const sumPerMonth = (requiredAmount - ((1 + depositInterest / 100) ** term) * startingAmount) / interestAmount;
+  return sumPerMonth;
+}
+
+function changeOfValue(data) {
+  inputAmount.value = data.amount;
+  inputDate.value = data.date;
+  inputInitialPayment.value = data.payment;
+  inputInterest.value = data.interest;
+  console.log(data);
+}
+
+inputAmount.addEventListener('input', () => {
+  changeOfValue(getUserData());
+});
+
+inputDate.addEventListener('input', () => {
+  changeOfValue(getUserData());
+});
+
+inputInitialPayment.addEventListener('input', () => {
+  changeOfValue(getUserData());
+});
+
+inputInterest.addEventListener('input', () => {
+  changeOfValue(getUserData());
+});
